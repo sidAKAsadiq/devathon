@@ -21,13 +21,21 @@ import skillGapRoutes from "./routes/skillGap.routes.js";
 import learningRoutes from "./routes/learning.routes.js";
 import jobRoutes from "./routes/job.routes.js";
 import verificationRoutes from "./routes/verification.routes.js";
+import userRoutes from "./routes/user.routes.js";
+import authRoutes from "./routes/auth.routes.js"
 
 
+app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
 app.use("/api/skills", verificationRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/learning", learningRoutes);
 app.use("/api/skill-gap", skillGapRoutes);
 
+
+
+
+  
 
 
 export { app }

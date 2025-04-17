@@ -31,6 +31,7 @@ export const fetchCoursesFromAPI = async (skill) => {
       allCourses.push(...reviews);
     }
 
+    console.log(allCourses)
     // 🔍 Filter by skill in course name
     const filtered = allCourses.filter(course =>
       course.course_name?.toLowerCase().includes(skill.toLowerCase())

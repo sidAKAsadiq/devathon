@@ -47,3 +47,26 @@ export const extractSkillsFromText = async (text, type = "resume") => {
   const response = await result.response;
   return response.text().trim();
 };
+
+
+export const generateQuizFromSkill = async (skill) => {
+  const prompt = `
+Generate a JSON array of 3 beginner-level multiple choice questions to test the skill "${skill}".
+
+Each object must have:
+- "question": the question string
+- "options": array of 3 strings
+- "correctIndex": 0, 1, or 2 (index of the correct answer)
+
+Only return the raw JSON array, no explanation.
+`;
+
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const result = await model.generateContent(prompt);
+  const rawText = result.response.text();
+
+  const jsonMatch = rawText.match(/\[.*\]/s);
+  if (!jsonMatch) throw new Error("Gemini response parsing failed");
+
+  return JSON.parse(jsonMatch[0]);
+};
