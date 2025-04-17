@@ -9,7 +9,14 @@ const userSchema = new mongoose.Schema({
   skills: [String],
   missingSkills: [String],
   transferableSkills: [String],
-  verifiedSkills: [String],
+  verifiedSkills: [
+    {
+      skill: String,
+      issuedAt: Date,
+      method: String,
+      badgeId: String
+    }
+  ]
 }, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);

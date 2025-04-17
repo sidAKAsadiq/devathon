@@ -21,8 +21,9 @@ import skillGapRoutes from "./routes/skillGap.routes.js";
 import learningRoutes from "./routes/learning.routes.js";
 import jobRoutes from "./routes/job.routes.js";
 import verificationRoutes from "./routes/verification.routes.js";
+import userRoutes from "./routes/user.routes.js";
 
-
+app.use("/api/user", userRoutes); // User routes
 app.use("/api/skills", verificationRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/learning", learningRoutes);
