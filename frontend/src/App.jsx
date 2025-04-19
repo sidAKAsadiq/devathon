@@ -1,43 +1,73 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { createTheme } from "@mui/material/styles";
-import { Helmet } from "react-helmet";
+// App.jsx
+import { Routes, Route, Link } from 'react-router-dom';
+import { useState } from 'react';
+import Skill_Analysis from './screens/Skill_Analysis.jsx';
+import LearningPathsPage from './screens/Learning_Path.jsx';
+import JobMatchingPage from './screens/Job_Matching.jsx';
+import CredentialsPage from './screens/Credentials.jsx';
+import Profile from './screens/User_Profile.jsx';
+import Login from './screens/Login.jsx';
+import Register from './screens/Register.jsx';
+//import { Dashboard } from '@mui/icons-material';
+import SkillBridgePage from './screens/Dashborad.jsx';
 
-// Pages
-import Home from "./pages/Home";
-import About from "./pages/About";
-import NotFound from "./pages/NotFound";
+function Home() {
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold">Home Page</h1>
+      <p className="mt-2 text-gray-600">Welcome to the Home Page!</p>
+    </div>
+  );
+}
 
-const theme = createTheme({
-  palette: {
-    mode: "light",
-  },
-});
+function About() {
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold">About Page</h1>
+      <p className="mt-2 text-gray-600">Learn more about us here.</p>
+    </div>
+  );
+}
 
-const metadata = {
-  title: "SkillBridge - Bridge Your Skills Gap with AI",
-  description:
-    "Identify your skill gaps, get personalized learning recommendations, and connect directly to job opportunities that match your growing skillset.",
-};
+function NotFound() {
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold text-red-500">404 - Not Found</h1>
+      <p className="mt-2 text-gray-600">Sorry, page not found!</p>
+    </div>
+  );
+}
 
 function App() {
+  const [count, setCount] = useState(0);
+
+  const ProtectedRoute = ({ children }) => {
+    const token = localStorage.getItem("token");
+    return token ? children : <Navigate to="/" />;
+  };
+  
+
   return (
-    <>
-      <Helmet>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-      </Helmet>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {/* Common layout can go here: header, sidebar, footer, etc. */}
+    <div className="min-h-screen bg-gray-100">
+     
+
+      <main className="p-6">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<SkillBridgePage />} />
           <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/skill-analysis" element={<ProtectedRoute><Skill_Analysis /></ProtectedRoute>} />
+          <Route path="/learning-path" element={<ProtectedRoute><LearningPathsPage /></ProtectedRoute>} />
+          <Route path="/job-matching" element={<ProtectedRoute><JobMatchingPage /></ProtectedRoute>} />
+          <Route path="/credentials" element={<ProtectedRoute><CredentialsPage /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
-      </ThemeProvider>
-    </>
+
+        
+      </main>
+    </div>
   );
 }
 

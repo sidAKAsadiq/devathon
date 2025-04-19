@@ -8,4 +8,4 @@ const router = express.Router();
 router.post("/verify",protect, verifySkill);
 router.get("/quiz",protect, getDynamicQuiz);
 
-export default router;
+export default router;
